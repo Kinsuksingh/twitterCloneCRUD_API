@@ -149,7 +149,7 @@ app.get('/user/following/', authentication, async (req,res) => {
         return res.status(500).json({ message: 'Error retrieving followers' });
     }
     const followingUserIds = followingUserIdList.map(follower => follower.following_user_id)
-    const query = `SELECT  username as name
+    const query = `SELECT name
     FROM user
     WHERE user_id IN (${followingUserIds.join(', ')});`
     try{
@@ -174,7 +174,7 @@ app.get('/user/followers/', authentication, async (req,res) => {
         return res.status(500).json({ message: 'Error retrieving followers' });
     }
     const followerUserIds = followerUserIdList.map(follower => follower.follower_user_id)
-    const query = `SELECT  username as name
+    const query = `SELECT name
     FROM user
     WHERE user_id IN (${followerUserIds.join(', ')});`
     try{
@@ -281,7 +281,7 @@ app.get('/tweets/:tweetId/replies/', authentication, async (req,res) => {
     try{
         const uId = await db.get(query)
         if(uId.user_id in followingUserIds){
-            let queryForRes =  `SELECT u.username as name , r.reply as reply
+            let queryForRes =  `SELECT u.name as name , r.reply as reply
                                 FROM reply as r 
                                 JOIN user as u 
                                 ON r.user_id = u.user_id
