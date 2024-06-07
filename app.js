@@ -368,3 +368,5 @@ app.delete('/tweets/:tweetId/', authentication, async (req,res) => {
         console.log(err.message)
     }
 })
+
+module.exports = app
